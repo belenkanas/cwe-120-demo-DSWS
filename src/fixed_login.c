@@ -19,6 +19,7 @@ void login(void) {
     }
     /* fgets conserva el '\n' final; lo removemos si esta presente */
     usuario[strcspn(usuario, "\n")] = '\0';
+    /* Ahora el buffer 'usuario' esta seguro y no contiene caracteres adicionales */
 
     if (acceso_admin) {
         printf("[OK] Acceso concedido como administrador.\n");
