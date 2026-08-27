@@ -18,8 +18,8 @@ void login(void) {
     printf("Usuario: ");
     fflush(stdout);
 
-    /* CWE-120: gets() nunca verifica cuantos bytes escribe en el buffer */
-    gets(usuario);
+    /* CWE-120: scanf con %s no limita la cantidad de caracteres copiados */
+    scanf("%s", usuario);
 
     if (acceso_admin) {
         printf("[OK] Acceso concedido como administrador.\n");

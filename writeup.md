@@ -56,7 +56,7 @@ Abrir una terminal en Kali y ejecutar:
 ```bash
 cd ~
 git clone https://github.com/belenkanas/cwe-120-demo-DSWS.git
-cd cwe-120-demo
+cd cwe-120-demo-DSWS
 ```
 
 Verificar que se haya clonado correctamente:
@@ -225,8 +225,8 @@ make clean
 
 ```bash
 # Clonar
-git clone https://github.com/<tu-usuario>/cwe-120-demo.git
-cd cwe-120-demo
+git clone https://github.com/belenkanas/cwe-120-demo-DSWS.git
+cd cwe-120-demo-DSWS
 
 # Compilar
 make

@@ -47,21 +47,28 @@ contraseña.
 echo "belen" | ./vulnerable_login
 # -> [--] Acceso denegado para el usuario 'belen'.
 
-# Caso con overflow: 32 caracteres alcanzan para pisar acceso_admin
-python3 -c "print('A'*32)" | ./vulnerable_login
+# Caso con overflow: 30 caracteres alcanzan para pisar acceso_admin
+python3 -c "print('A'*30)" | ./vulnerable_login
 # -> [OK] Acceso concedido como administrador.
 ```
 
 Con la versión corregida, el mismo payload ya no altera el flujo:
 
 ```bash
-python3 -c "print('A'*32)" | ./fixed_login
+python3 -c "print('A'*30)" | ./fixed_login
 # -> [--] Acceso denegado para el usuario 'AAAA...' (truncado a 15 caracteres)
 ```
 
-**Por qué funciona:** `gets()` (CWE-120) copia toda la entrada sin
-límite. `fgets(usuario, sizeof(usuario), stdin)` sí conoce el tamaño
-del buffer y nunca escribe más allá de sus límites.
+**Por qué funciona:** `scanf("%s", usuario)` (CWE-120) copia toda la
+entrada sin límite hasta el próximo espacio/salto de línea.
+`fgets(usuario, sizeof(usuario), stdin)` sí conoce el tamaño del
+buffer y nunca escribe más allá de sus límites.
+
+> Nota: la primera versión de esta demo usaba `gets()`, pero esa
+> función fue eliminada de la librería estándar de C (glibc) hace
+> varias versiones, por lo que ya no compila en distros actuales
+> como Kali. Se reemplazó por `scanf("%s", ...)`, que sigue existiendo
+> y es igual de vulnerable cuando no se limita el ancho.
 
 ## Demo 2 — El ejemplo oficial de CWE-120 (`vulnerable_apellido`)
 
