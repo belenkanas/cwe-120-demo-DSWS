@@ -1,5 +1,4 @@
 /*
- * Version corregida de vulnerable_login.c
  * Mitigacion aplicada (Fase de Implementacion, CWE-120):
  *   - Reglas de asignacion y administracion de memoria:
  *     se usa fgets(), que SI recibe el tamaño del buffer como parametro
