@@ -88,6 +88,7 @@ gcc -g -O0 -fno-stack-protector -z execstack -no-pie ... -o vulnerable_apellido 
 gcc -g -O0 -Wall -o fixed_login src/fixed_login.c
 gcc -g -O0 -Wall -o fixed_apellido src/fixed_apellido.c
 ```
+![Salida esperada](images/imagen1.png)
 
 Es normal ver un warning de `gets` marcada como "dangerous" — es justamente
 la función que estamos usando para demostrar la vulnerabilidad.
@@ -140,6 +141,9 @@ Usuario: [--] Acceso denegado para el usuario 'AAAAAAAAAAAAAAA'.
 `fgets()` trunca la entrada al tamaño real del buffer, por lo que
 `acceso_admin` nunca se ve afectado.
 
+Resumen:
+![Paso 3](images/imagen2.png)
+
 ## Paso 4 — Demo 2: el ejemplo oficial de CWE-120 (crash)
 
 `vulnerable_apellido.c` reproduce el código exacto de la definición de
@@ -166,11 +170,14 @@ python3 -c "print('A'*50)" | ./vulnerable_apellido
 Salida esperada:
 
 ```
-Enter your last name: Segmentation fault
+Enter your last name: ... Segmentation fault
 ```
 
 El programa corrompe memoria más allá del buffer y termina abruptamente —el
 impacto de **Disponibilidad (DoS)** que se menciona en la presentación.
+
+![Paso 4 parte 1](images/imagen3.png)
+
 
 **Versión corregida:**
 
@@ -183,6 +190,8 @@ Salida esperada:
 ```
 Enter your last name: Hola, AAAAAAAAAAAAAAAAAAA
 ```
+Diferencia:
+![Paso 4 parte 2](images/imagen4.png)
 
 Con `scanf("%19s", last_name)` la entrada se trunca de forma segura y el
 programa no crashea.
@@ -201,6 +210,7 @@ Dentro de gdb:
 (gdb) run <<< $(python3 -c "print('A'*50)")
 (gdb) bt
 ```
+![backtrace](images/imagen5.png)
 
 El `backtrace` (`bt`) va a mostrar una dirección de retorno corrupta o
 inválida, evidenciando que la memoria contigua al buffer (en este caso, hacia
