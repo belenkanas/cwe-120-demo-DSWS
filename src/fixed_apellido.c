@@ -1,5 +1,4 @@
 /*
- * Version corregida de vulnerable_apellido.c
  * Mitigacion aplicada (Fase de Implementacion, CWE-120):
  *   - Se limita explicitamente el ancho de campo en scanf ("%19s")
  *     para que nunca escriba mas de 19 caracteres + '\0' en un buffer
