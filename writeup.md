@@ -5,7 +5,7 @@
 CWE-120 describe una de las fallas de seguridad más antiguas y persistentes en
 software escrito en C/C++: copiar datos de entrada a un buffer de tamaño fijo
 sin verificar que esos datos entren en el espacio reservado. El caso más
-conocido en la vida real es el **gusano Morris (1988)**, que explotó
+conocido en la vida real es el **Gusano Morris (1988)**, que explotó
 exactamente este patrón en el demonio `fingerd` de BSD Unix.
 
 Este writeup documenta cómo levantar y ejecutar, en una VM de **Kali Linux**,
@@ -51,26 +51,21 @@ sudo apt install -y git build-essential gdb
 
 ## Paso 1 — Clonar el repositorio desde la VM
 
-Abrí una terminal en Kali y ejecutá:
+Abrir una terminal en Kali y ejecutar:
 
 ```bash
 cd ~
-git clone https://github.com/<tu-usuario>/cwe-120-demo.git
+git clone https://github.com/belenkanas/cwe-120-demo-DSWS.git
 cd cwe-120-demo
 ```
 
-> Reemplazá `<tu-usuario>` por el nombre de usuario/organización real de tu
-> repositorio en GitHub. Si el repo es privado, `git clone` te va a pedir
-> autenticación (usuario + Personal Access Token, ya que GitHub no acepta más
-> contraseña por HTTPS).
-
-Verificá que se haya clonado correctamente:
+Verificar que se haya clonado correctamente:
 
 ```bash
 ls -la
 ```
 
-Deberías ver `Makefile`, `README.md`, `.gitignore` y la carpeta `src/` con los
+Se deberían ver `Makefile`, `README.md`, `.gitignore` y la carpeta `src/` con los
 cuatro archivos `.c`.
 
 ## Paso 2 — Compilar los binarios
@@ -79,7 +74,7 @@ El `Makefile` genera 4 binarios: dos vulnerables y dos corregidos. Las flags
 de compilación de los binarios vulnerables **desactivan a propósito**
 protecciones del compilador (stack protector, NX, PIE) para poder observar el
 comportamiento "clásico" de CWE-120. Esto está comentado explícitamente en el
-`Makefile` y es solo para fines educativos.
+`Makefile` y el único porpósito es para presentar en la demo.
 
 ```bash
 make
