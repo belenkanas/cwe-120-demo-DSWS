@@ -5,8 +5,6 @@
  * (tomado de la definicion oficial de CWE-120). Un buffer de 20 bytes
  * recibe una entrada mas larga y se corrompe la memoria vecina,
  * lo que termina en un segmentation fault.
- *
- * Fines educativos unicamente.
  */
 #include <stdio.h>
 
